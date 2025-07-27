@@ -1,0 +1,23 @@
+[toolchain]
+# Hugure S-Entropy Framework requires Rust 1.75+ for advanced mathematical libraries
+channel = "1.75"
+profile = "default"
+
+# Additional components for S-Entropy development
+components = [
+    "rustfmt",           # Code formatting for S-Entropy style consistency
+    "clippy",            # Linting for consciousness-aware code quality
+    "rust-src",          # Source code for IDE integration
+    "rust-analyzer",     # Language server for S-Entropy development
+    "llvm-tools-preview" # For profiling and performance analysis
+]
+
+# Targets for cross-compilation and quantum computing integration
+targets = [
+    "x86_64-unknown-linux-gnu",     # Primary Linux deployment target
+    "x86_64-unknown-linux-musl",    # Static linking for Docker
+    "x86_64-pc-windows-msvc",       # Windows development support
+    "x86_64-apple-darwin",          # macOS development support
+    "aarch64-unknown-linux-gnu",    # ARM64 for quantum hardware
+    "wasm32-unknown-unknown"        # WebAssembly for browser integration
+] 

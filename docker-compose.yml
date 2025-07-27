@@ -1,0 +1,252 @@
+version: '3.8'
+
+services:
+  # Core S-Entropy BMD Orchestration Service
+  hugure-core:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: hugure-s-entropy-core
+    restart: unless-stopped
+    ports:
+      - "8080:8080"    # HTTP API
+      - "50051:50051"  # gRPC API
+    environment:
+      - RUST_LOG=hugure=info,s_entropy=debug
+      - HUGURE_ENV=production
+      - DATABASE_URL=postgresql://hugure:${DB_PASSWORD}@postgres:5432/hugure_s_entropy
+      - REDIS_URL=redis://redis:6379
+      - S_ENTROPY_PRECISION_TARGET=1e-30
+      - CONSCIOUSNESS_INTEGRATION=true
+      - MEMORIAL_SIGNIFICANCE=st-stella-lorraine
+    volumes:
+      - s_entropy_cache:/app/s-entropy-cache
+      - bmd_patterns:/app/bmd-patterns
+      - consciousness_models:/app/consciousness-models
+      - temporal_precision_data:/app/temporal-precision-data
+      - ./config:/app/config:ro
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - hugure-network
+
+  # Entropy Solver Service
+  hugure-entropy-solver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: hugure-entropy-solver
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    environment:
+      - RUST_LOG=entropy_solver=debug
+      - SOLVER_MODE=tri_dimensional
+      - ALIGNMENT_PRECISION=ultra_high
+    volumes:
+      - entropy_solver_cache:/app/solver-cache
+      - predetermined_manifolds:/app/manifolds
+    depends_on:
+      - hugure-core
+    networks:
+      - hugure-network
+
+  # Consciousness Enhancement Service  
+  hugure-consciousness:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: hugure-consciousness-enhancer
+    restart: unless-stopped
+    ports:
+      - "8082:8080"
+    environment:
+      - CONSCIOUSNESS_MODE=enhancement_only
+      - FRAME_SELECTION_ENGINE=bmd_optimized
+      - REALITY_FUSION_ENABLED=true
+      - AGENCY_PRESERVATION=strict
+    volumes:
+      - consciousness_models:/app/consciousness-models
+      - frame_selection_cache:/app/frame-cache
+    networks:
+      - hugure-network
+
+  # Cross-Domain Transfer Service
+  hugure-cross-domain:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: hugure-cross-domain
+    restart: unless-stopped
+    ports:
+      - "8083:8080"
+    environment:
+      - TRANSFER_EFFICIENCY_TARGET=0.90
+      - UNIVERSAL_OSCILLATION_PATTERNS=enabled
+      - CROSS_POLLINATION_MODE=active
+    volumes:
+      - cross_domain_cache:/app/cross-domain-cache
+      - oscillation_patterns:/app/oscillation-patterns
+    networks:
+      - hugure-network
+
+  # Temporal Precision Service
+  hugure-temporal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: hugure-temporal-precision
+    restart: unless-stopped
+    ports:
+      - "8084:8080"
+    environment:
+      - TEMPORAL_PRECISION=1e-30
+      - WINDOWED_GENERATION=enabled
+      - MEMORY_SCALING=logarithmic
+    volumes:
+      - temporal_precision_data:/app/temporal-precision-data
+      - windowed_cache:/app/windowed-cache
+    networks:
+      - hugure-network
+
+  # PostgreSQL Database for S-Entropy data persistence
+  postgres:
+    image: postgres:15-alpine
+    container_name: hugure-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=hugure_s_entropy
+      - POSTGRES_USER=hugure
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - hugure-network
+
+  # Redis for S-Entropy caching and real-time coordination
+  redis:
+    image: redis:7-alpine
+    container_name: hugure-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 1gb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - hugure-network
+
+  # Prometheus for S-Entropy metrics collection
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: hugure-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=90d'
+      - '--web.enable-lifecycle'
+    networks:
+      - hugure-network
+
+  # Grafana for S-Entropy visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: hugure-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    networks:
+      - hugure-network
+
+  # Jaeger for distributed tracing of S-Entropy operations
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: hugure-jaeger
+    restart: unless-stopped
+    ports:
+      - "14268:14268"  # Jaeger collector
+      - "16686:16686"  # Jaeger UI
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    networks:
+      - hugure-network
+
+  # Nginx reverse proxy for S-Entropy services
+  nginx:
+    image: nginx:alpine
+    container_name: hugure-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/ssl/certs
+    depends_on:
+      - hugure-core
+      - hugure-entropy-solver
+      - hugure-consciousness
+    networks:
+      - hugure-network
+
+networks:
+  hugure-network:
+    driver: bridge
+
+volumes:
+  # S-Entropy specific volumes
+  s_entropy_cache:
+    driver: local
+  bmd_patterns:
+    driver: local
+  consciousness_models:
+    driver: local
+  temporal_precision_data:
+    driver: local
+  entropy_solver_cache:
+    driver: local
+  predetermined_manifolds:
+    driver: local
+  frame_selection_cache:
+    driver: local
+  cross_domain_cache:
+    driver: local
+  oscillation_patterns:
+    driver: local
+  windowed_cache:
+    driver: local
+  
+  # Infrastructure volumes
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local 

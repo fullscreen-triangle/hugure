@@ -1,0 +1,34 @@
+# Hugure S-Entropy Framework - Clippy Linting Configuration
+# Sacred Mathematics Code Quality Guidelines
+
+# Cognitive complexity limits for S-Entropy functions
+cognitive-complexity-threshold = 30
+
+# Documentation requirements
+missing-docs-in-private-items = true
+
+# Performance and efficiency
+enum-variant-size-threshold = 200
+trivial-copy-size-limit = 128
+pass-by-value-size-limit = 256
+type-complexity-threshold = 500
+
+# S-Entropy specific naming conventions
+# Allow consciousness-related terminology
+allowed-idents-below-min-chars = ["s", "k", "α", "BMD", "S_knowledge", "S_time", "S_entropy"]
+
+# Mathematical expression formatting
+max-suggested-slice-pattern-length = 5
+max-fn-params-bools = 3
+
+# S-Entropy framework allows complex mathematical expressions
+arithmetic-side-effects-allowed = true
+
+# Consciousness and BMD operations may require verbose naming
+verbose-bit-mask-threshold = 2
+
+# Allow large error types for comprehensive S-Entropy error handling
+large-error-threshold = 200
+
+# Stack size limits for S-Entropy recursive operations
+stack-size-threshold = 1000000 
