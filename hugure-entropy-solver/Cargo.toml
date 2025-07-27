@@ -60,10 +60,6 @@ universal-transformation = []
 tokio-test = "0.4"
 criterion = { workspace = true }
 
-[[bench]]
-name = "entropy_solver_benchmarks"
-harness = false
-
 [[bin]]
 name = "hugure-entropy-solver"
 path = "src/main.rs"

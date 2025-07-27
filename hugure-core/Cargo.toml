@@ -48,10 +48,6 @@ tokio-test = "0.4"
 criterion = { workspace = true, features = ["html_reports"] }
 proptest = { workspace = true }
 
-[[bench]]
-name = "s_entropy_benchmarks"
-harness = false
-
 [[bin]]
 name = "hugure-core"
 path = "src/main.rs" 

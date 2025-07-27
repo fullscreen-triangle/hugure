@@ -3,7 +3,7 @@
 
 [build]
 # Use all available CPU cores for S-Entropy compilation
-jobs = 0
+jobs = -1
 
 # Optimized target for consciousness-computation integration
 target-dir = "target"

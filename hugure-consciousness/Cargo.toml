@@ -56,10 +56,6 @@ tokio-test = "0.4"
 criterion = { workspace = true }
 proptest = { workspace = true }
 
-[[bench]]
-name = "consciousness_benchmarks"
-harness = false
-
 [[bin]]
 name = "hugure-consciousness"
 path = "src/main.rs" 
