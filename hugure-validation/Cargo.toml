@@ -1,0 +1,26 @@
+[package]
+name = "hugure-validation"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "S-Entropy Validation Framework - Theoretical validation, consciousness integration testing, and memorial verification"
+keywords = ["validation", "testing", "theoretical-verification", "memorial-significance"]
+categories = ["science", "development-tools::testing"]
+
+[dependencies]
+hugure-core = { path = "../hugure-core" }
+hugure-consciousness = { path = "../hugure-consciousness" }
+hugure-entropy-solver = { path = "../hugure-entropy-solver" }
+tokio = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+anyhow = { workspace = true }
+clap = { workspace = true, features = ["derive"] }
+
+[[bin]]
+name = "hugure-validation"
+path = "src/main.rs" 

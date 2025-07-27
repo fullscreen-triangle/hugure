@@ -1,0 +1,73 @@
+[package]
+name = "hugure-core"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Core S-Entropy Framework - Tri-dimensional S-distance measurement and observer-process integration"
+keywords = ["s-entropy", "consciousness", "bmd", "quantum", "mathematics"]
+categories = ["science", "algorithms", "mathematics"]
+
+[dependencies]
+# Core async runtime
+tokio = { workspace = true, features = ["full"] }
+async-trait = { workspace = true }
+futures = { workspace = true }
+
+# Mathematical computing for S-Entropy operations
+nalgebra = { workspace = true }
+ndarray = { workspace = true }
+num-complex = { workspace = true }
+statrs = { workspace = true }
+approx = { workspace = true }
+
+# Serialization for S-Entropy data
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+
+# Time and precision
+chrono = { workspace = true, features = ["serde"] }
+instant = { workspace = true }
+
+# Error handling
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# Logging and tracing
+tracing = { workspace = true }
+
+# UUID for S-Entropy coordinate identification
+uuid = { workspace = true, features = ["v4", "serde"] }
+
+[features]
+default = ["standard"]
+standard = ["tokio", "nalgebra", "tracing"]
+quantum = ["qiskit-integration"]
+performance = ["rayon-parallel"]
+ultra-precision = ["high-precision-math"]
+
+# S-Entropy specific features
+qiskit-integration = []
+rayon-parallel = ["rayon"]
+high-precision-math = []
+
+[dependencies.rayon]
+version = "1.8"
+optional = true
+
+[dev-dependencies]
+tokio-test = "0.4"
+criterion = { workspace = true, features = ["html_reports"] }
+proptest = { workspace = true }
+
+[[bench]]
+name = "s_entropy_benchmarks"
+harness = false
+
+[[bin]]
+name = "hugure-core"
+path = "src/main.rs" 

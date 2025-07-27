@@ -1,0 +1,20 @@
+[package]
+name = "hugure-utils"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "S-Entropy Utilities - Shared utilities, windowed processing, and universal accessibility functions"
+keywords = ["utilities", "windowed-processing", "accessibility", "s-entropy-helpers"]
+categories = ["science", "development-tools"]
+
+[dependencies]
+hugure-core = { path = "../hugure-core" }
+tokio = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+anyhow = { workspace = true }
+nalgebra = { workspace = true } 

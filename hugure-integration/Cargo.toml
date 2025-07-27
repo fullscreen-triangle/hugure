@@ -1,0 +1,20 @@
+[package]
+name = "hugure-integration"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "S-Entropy External Integrations - Quantum computing, consciousness frameworks, and ecosystem integration"
+keywords = ["integration", "quantum", "consciousness", "ecosystem"]
+categories = ["science", "api-bindings"]
+
+[dependencies]
+hugure-core = { path = "../hugure-core" }
+tokio = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+anyhow = { workspace = true }
+reqwest = { workspace = true, features = ["json"] } 

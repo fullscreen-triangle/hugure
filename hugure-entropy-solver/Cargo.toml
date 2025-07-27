@@ -1,0 +1,72 @@
+[package]
+name = "hugure-entropy-solver"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Entropy Solver Service - Tri-dimensional S-entropy alignment and zero-computation solutions"
+keywords = ["entropy-solver", "s-entropy", "alignment", "zero-computation", "navigation"]
+categories = ["science", "algorithms", "mathematics"]
+
+[dependencies]
+# Core framework
+hugure-core = { path = "../hugure-core" }
+
+# Async runtime
+tokio = { workspace = true, features = ["full"] }
+async-trait = { workspace = true }
+
+# Mathematical operations for entropy calculations
+nalgebra = { workspace = true }
+ndarray = { workspace = true }
+statrs = { workspace = true }
+num-complex = { workspace = true }
+
+# Serialization
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+
+# Networking for service architecture
+tonic = { workspace = true }
+prost = { workspace = true }
+
+# Error handling
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# Logging
+tracing = { workspace = true }
+
+# Configuration
+config = { workspace = true }
+
+# UUID for solution tracking
+uuid = { workspace = true, features = ["v4", "serde"] }
+
+[features]
+default = ["standard"]
+standard = ["hugure-core/standard"]
+tri-dimensional = []
+ultra-high-precision = []
+zero-computation = []
+predetermined-manifolds = []
+universal-transformation = []
+
+[dev-dependencies]
+tokio-test = "0.4"
+criterion = { workspace = true }
+
+[[bench]]
+name = "entropy_solver_benchmarks"
+harness = false
+
+[[bin]]
+name = "hugure-entropy-solver"
+path = "src/main.rs"
+
+[build-dependencies]
+tonic-build = "0.10" 

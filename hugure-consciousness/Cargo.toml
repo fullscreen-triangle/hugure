@@ -1,0 +1,65 @@
+[package]
+name = "hugure-consciousness"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "Consciousness as BMD Operation - Frame selection, reality fusion, and memory fabrication"
+keywords = ["consciousness", "bmd", "frame-selection", "memory-fabrication", "agency"]
+categories = ["science", "cognitive-science", "algorithms"]
+
+[dependencies]
+# Core framework
+hugure-core = { path = "../hugure-core" }
+
+# Async runtime
+tokio = { workspace = true, features = ["full"] }
+async-trait = { workspace = true }
+
+# Mathematical operations for consciousness modeling
+nalgebra = { workspace = true }
+ndarray = { workspace = true }
+num-complex = { workspace = true }
+
+# Serialization
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+
+# Error handling
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# Logging
+tracing = { workspace = true }
+
+# Time and temporal coherence
+chrono = { workspace = true }
+
+# UUID for consciousness state tracking
+uuid = { workspace = true, features = ["v4", "serde"] }
+
+[features]
+default = ["standard"]
+standard = ["hugure-core/standard"]
+enhancement-only = []
+frame-selection-engine = []
+reality-fusion = []
+agency-preservation = []
+memory-fabrication = []
+
+[dev-dependencies]
+tokio-test = "0.4"
+criterion = { workspace = true }
+proptest = { workspace = true }
+
+[[bench]]
+name = "consciousness_benchmarks"
+harness = false
+
+[[bin]]
+name = "hugure-consciousness"
+path = "src/main.rs" 

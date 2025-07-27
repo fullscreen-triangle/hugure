@@ -1,0 +1,31 @@
+[package]
+name = "hugure-frameworks"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+description = "S-Entropy Advanced Frameworks - Strategic impossibility, cross-domain optimization, and temporal precision"
+keywords = ["strategic-impossibility", "cross-domain", "temporal-precision", "ridiculous-solutions"]
+categories = ["science", "algorithms"]
+
+[dependencies]
+hugure-core = { path = "../hugure-core" }
+tokio = { workspace = true, features = ["full"] }
+async-trait = { workspace = true }
+nalgebra = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+rayon = { workspace = true }
+
+[features]
+default = ["standard"]
+standard = ["hugure-core/standard"]
+strategic-impossibility = []
+cross-domain = []
+temporal-precision = []
+disposable-generation = [] 
