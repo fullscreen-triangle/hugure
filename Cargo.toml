@@ -17,7 +17,7 @@ authors = ["Kundai Farai Sachikonye <kundai@hugure.dev>"]
 edition = "2021"
 rust-version = "1.75"
 license = "MIT"
-repository = "https://github.com/fullscreen-triangle/hugure"
+repository = "https://github.com/kundai/hugure"
 homepage = "https://hugure.dev"
 documentation = "https://docs.hugure.dev"
 description = "S-Enhanced Biological Maxwell Demon Orchestration Framework for Bidirectional Cognitive Pattern Optimization"
@@ -129,6 +129,6 @@ memorial-significance = "st-stella-lorraine"
 [workspace.metadata.features]
 default = ["standard"]
 standard = ["tokio", "serde", "nalgebra", "tracing"]
-quantum = ["qiskit-terra", "tch"]
+quantum = []
 performance = ["jemalloc-sys", "rayon"]
 full = ["quantum", "performance"] 
